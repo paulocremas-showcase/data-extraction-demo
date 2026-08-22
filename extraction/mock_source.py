@@ -20,7 +20,7 @@ class MockVendorSource:
     def __init__(self, item_count: int = 2500, page_size: int = 250, seed: int = 42):
         self.item_count = item_count
         self.page_size = page_size
-        self._rng = random.Random(seed)
+        self._rng = random.Random(seed)  # noqa: S311 -- deterministic mock data, not a security use
 
     def iter_pages(self, start_cursor: Optional[str] = None) -> Iterator[Page]:
         offset = int(start_cursor) if start_cursor else 0

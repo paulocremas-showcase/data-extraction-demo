@@ -45,7 +45,7 @@ class VendorAPIClient:
                 data = resp.json()
                 return Page(items=data["items"], next_cursor=data.get("next_cursor"))
             if _is_retryable(resp.status_code) and attempt < self.max_retries - 1:
-                time.sleep(backoff + random.uniform(0, 0.5))
+                time.sleep(backoff + random.uniform(0, 0.5))  # noqa: S311 -- retry jitter, not a security use
                 backoff *= 3
                 continue
             resp.raise_for_status()

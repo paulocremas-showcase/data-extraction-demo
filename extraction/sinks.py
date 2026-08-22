@@ -56,8 +56,13 @@ class BigQuerySink:
         self.cursor_table_ref = f"{project}.{dataset}._pipeline_cursor"
 
     def load_cursor(self) -> Optional[str]:
+        # noqa justification: this f-string interpolates a table identifier, not a value.
+        # BigQuery has no bind-parameter syntax for identifiers, only for values -- see
+        # write_chunk() below for the same query binding its one real value, `cursor`.
         rows = list(
-            self.client.query(f"SELECT cursor FROM `{self.cursor_table_ref}` WHERE id = 1").result()
+            self.client.query(
+                f"SELECT cursor FROM `{self.cursor_table_ref}` WHERE id = 1"  # noqa: S608
+            ).result()
         )
         return rows[0].cursor if rows else None
 
@@ -71,7 +76,7 @@ class BigQuerySink:
             query_parameters=[self._bq.ScalarQueryParameter("cursor", "STRING", cursor)]
         )
         self.client.query(
-            f"MERGE `{self.cursor_table_ref}` T USING (SELECT @cursor AS cursor) S "
+            f"MERGE `{self.cursor_table_ref}` T USING (SELECT @cursor AS cursor) S "  # noqa: S608
             "ON T.id = 1 "
             "WHEN MATCHED THEN UPDATE SET cursor = S.cursor "
             "WHEN NOT MATCHED THEN INSERT (id, cursor) VALUES (1, S.cursor)",
