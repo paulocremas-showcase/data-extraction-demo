@@ -4,7 +4,7 @@
 
 Resumable extraction from a paginated vendor API into a warehouse, with retry-on-429 handling. One piece of a small multi-service platform demo, see [Related repos](#related-repos) for the rest.
 
-This is a sanitized, generic rebuild for portfolio purposes. No real vendor, client, or company data is used anywhere in this repo. More context: [paulocremas-showcase](https://github.com/paulocremas-showcase). Full portfolio: [paulocremas.github.io](https://paulocremas.github.io).
+This is a sanitized, generic rebuild for portfolio purposes. No real vendor, client, or company data is used anywhere in this repo. More context: [paulocremas-showcase](https://github.com/paulocremas-showcase). Full portfolio: [paulocremas.github.io](https://paulocremas.github.io). Built to the standard defined in my [Constitution](https://github.com/paulocremas/paulocremas-method).
 
 ## Table of contents
 - [What this is](#what-this-is)
@@ -49,7 +49,7 @@ To point at a real BigQuery project instead of the demo SQLite path, drop `--dem
 
 - **Resumable cursor, not restart-from-zero.** A chunk only counts as done once its cursor is persisted, so a crash mid-run costs at most one chunk of rework.
 - **429 is retryable, not fatal.** Treating a rate limit the same as a 5xx instead of a permanent 4xx error is one of the highest-leverage single-line fixes I've shipped in a real pipeline: it turned a recurring silent data-loss bug into a non-issue.
-- **Parameterized queries only.** `BigQuerySink` never string-formats a query, even though this demo has no untrusted input, because that's the habit that matters once it does.
+- **Every value is a bound parameter, never a formatted string.** `BigQuerySink` interpolates table and dataset identifiers, because BigQuery, like every SQL dialect, has no syntax to parameterize an identifier, but the cursor value itself is always passed as a `QueryJobConfig` parameter, even though this demo has no untrusted input, because that's the habit that matters once it does.
 
 ## Rules
 
