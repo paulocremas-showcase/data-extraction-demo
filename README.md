@@ -21,7 +21,7 @@ A pull-side extraction job: page through a vendor API, land the data in a wareho
 ## Flow
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Vendor API] -->|paginated| B[api_client.py]
     B -->|retry on 429/5xx| B
     B --> C[pipeline.py]
