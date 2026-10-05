@@ -352,9 +352,9 @@ google-auth[pyopenssl]==2.56.3 \
     #   google-api-core
     #   google-cloud-bigquery
     #   google-cloud-core
-google-cloud-bigquery==3.43.0 \
-    --hash=sha256:a39217f14f215472ce9da816f20ebaf77fdb1db7ccdc8360772d8bf6bafb55c2 \
-    --hash=sha256:e3dc25ab9ac8b2b089408493177d4d4508b098c80c3931786fbc20b075298fe6
+google-cloud-bigquery==3.46.1 \
+    --hash=sha256:c5564a58fc3c99b003cd334a8f302c6224bd34cb55c87476a3c445be1d00538b \
+    --hash=sha256:ee0e73d06a624c26445458e75f04deed894ed50a0c46bdc876f30c50e05ec6c2
     # via -r requirements.in
 google-cloud-core==2.6.1 \
     --hash=sha256:1e044b131f2ae097b92312fa195164b0aeb6dc6a88e00231e1210516314c420c \
